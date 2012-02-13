@@ -1,3 +1,17 @@
 = WebDebugToolbar
 
 This project rocks and uses MIT-LICENSE.
+
+= Installation
+
+To install this gem, add the following line to your application's Gemfile
+```ruby
+gem 'web-debug-toolbar', :git => 'git://github.com/ludovic-henry/web-debug-toolbar.git'
+```
+
+= What does it do
+
+This gem will simply add a bar to the top right of the page to show some informations about the request like:
+ * the time taken by the server to generate this page
+ * the time taken by the SQL queries and a list of each SQL query
+ * the time taken to render the different views
