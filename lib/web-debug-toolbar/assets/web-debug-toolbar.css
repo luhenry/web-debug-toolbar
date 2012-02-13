@@ -1,0 +1,38 @@
+#web-debug-toolbar {
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:100%;
+	margin:3px;
+}
+
+#web-debug-toolbar a {
+	color:#000;
+	text-decoration:none;
+}
+
+#web-debug-toolbar a:visited {
+	color:#000;
+}
+
+#web-debug-toolbar a:hover {
+	color:#fff;
+	background-color:#000;
+}
+#web-debug-toolbar .panel, #web-debug-toolbar .hidden-panel, #web-debug-toolbar .toolbar-toggle-panel {
+	float:right;
+	display:block;
+	padding:2px;
+	border:1px solid gray;
+	border-collapse:collapse;
+	background-color:white;
+}
+
+#web-debug-toolbar .hidden-panel {
+	position:absolute;
+	top:25px;
+	right:0px;
+	border:1px solid gray;
+	background-color:white;
+	max-width:99%;
+}
