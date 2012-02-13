@@ -1,15 +1,26 @@
-= WebDebugToolbar
+== WebDebugToolbar
 
 This project rocks and uses MIT-LICENSE.
 
-= Installation
+== Installation
 
 To install this gem, add the following line to your application's Gemfile
-```ruby
-gem 'web-debug-toolbar', :git => 'git://github.com/ludovic-henry/web-debug-toolbar.git'
-```
 
-= What does it do
+	gem 'web-debug-toolbar', :git => 'git://github.com/ludovic-henry/web-debug-toolbar.git'
+
+== Configuration
+
+The only thing that you need to do is : set the SHOW_DEBUG_TOOLBAR constant anywhere in the code. So you can for example create a config/initializers/web_debug_toolbar.rb and add some logic to enable or not the toolbar. For example :
+
+	#config/initializers/web_debug_toolbar.rb
+	
+	if ENV["RAILS_ENV"] == 'development'
+	  SHOW_DEBUG_TOOLBAR = true
+	else
+	  SHOW_DEBUG_TOOLBAR = false
+	end
+
+== What does it do
 
 This gem will simply add a bar to the top right of the page to show some informations about the request like:
  * the time taken by the server to generate this page
