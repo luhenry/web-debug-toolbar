@@ -1,4 +1,4 @@
-Log = Struct.new(:name, :start, :finish, :id, :payload)
+Log = Struct.new(:name, :duration, :payload)
 
 class LogsPanel < Panel
   def initialize
@@ -10,7 +10,7 @@ class LogsPanel < Panel
   end
   
   def notify(name, start, finish, id, payload)
-    @logs << Log.new(name, start, finish, id, payload)
+    @logs << Log.new(name, ((finish - start) * 1000).round(1), payload)
   end
   
   def reset(request, response)
@@ -20,11 +20,11 @@ class LogsPanel < Panel
   def render
     logs_render = ''
 
-    File.open(File.expand_path('../views/logs/log.html', File.dirname(__FILE__)), 'r') do |file|
+    File.open(File.expand_path('../views/logs-panel/log.html', File.dirname(__FILE__)), 'r') do |file|
       lines = file.readlines
 
       @logs.each do |log|
-        logs_render += lines.join('').gsub('#{name}', log.name.to_s).gsub('#{start}', log.start.to_s).gsub('#{finish}', log.finish.to_s).gsub('#{id}', log.id.to_s).gsub('#{payload}', log.payload.to_s)
+        logs_render += lines.join('').gsub('#{name}', log.name.to_s).gsub('#{duration}', "%0.1f" % log.duration).gsub('#{payload}', log.payload.to_s.gsub('\"', '"'))
       end
     end
 
