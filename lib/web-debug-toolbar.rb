@@ -2,10 +2,12 @@ require 'web-debug-toolbar/toolbar.rb'
 require 'web-debug-toolbar/panels/request-time-panel.rb'
 require 'web-debug-toolbar/panels/sql-queries-panel.rb'
 require 'web-debug-toolbar/panels/view-times-panel.rb'
+require 'web-debug-toolbar/panels/logs-panel.rb'
 
 module WebDebugToolbar
   @@toolbar = Toolbar.new
   @@toolbar.add_panel(RequestTimePanel.new)
+  @@toolbar.add_panel(LogsPanel.new)
   @@toolbar.add_panel(SqlQueriesPanel.new)
   @@toolbar.add_panel(ViewTimesPanel.new)
   
@@ -28,7 +30,7 @@ module WebDebugToolbar
 
         action.call
 
-        @@toolbar.notify('process_request.around_filter_end', request_time_start, Time.now, 0, [])
+        @@toolbar.notify('process_request.around_filter_end', request_time_start, Time.now, 0, {})
 
         javascript = File.open(File.expand_path('web-debug-toolbar/assets/web-debug-toolbar.js', File.dirname(__FILE__)), 'r') do |file|
           file.readlines.join
