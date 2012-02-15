@@ -32,7 +32,7 @@ class SqlQueriesPanel < Panel
       lines = file.readlines
 
       @sql_queries.each do |query|
-        sql_queries_render += lines.join('').gsub('#{sql}', query.sql).gsub('#{binds}', query.binds.map{ |bind| bind[1].to_s }.to_s).gsub('#{duration}', query.duration.to_s)
+        sql_queries_render += lines.join('').gsub('#{sql}', query.sql).gsub('#{binds}', query.binds.nil? ? '[]' : query.binds.map{ |bind| bind[1].to_s }.to_s).gsub('#{duration}', query.duration.to_s)
       end
     end
 
