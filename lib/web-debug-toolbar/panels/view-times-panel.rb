@@ -32,14 +32,14 @@ class ViewTimesPanel < Panel
       lines = file.readlines
 
       @views_times.each do |view_time|
-        view_times_render += lines.join('').gsub('#{route}', view_time.route).gsub('#{duration}', view_time.duration.to_s)
+        view_times_render += lines.join('').gsub('#{route}', view_time.route).gsub('#{duration}', "%0.1f" % view_time.duration)
       end
     end
 
     view_times_panel_render = ''
 
     File.open(File.expand_path('../views/view-times-panel.html', File.dirname(__FILE__)), 'r') do |file|
-      view_times_panel_render = file.readlines.join('').gsub('#{view_times_total_duration}', view_times_total_duration.to_s).gsub('#{view_times}', view_times_render)
+      view_times_panel_render = file.readlines.join('').gsub('#{view_times_total_duration}', "%0.1f" % view_times_total_duration).gsub('#{view_times}', view_times_render)
     end
 
     return view_times_panel_render

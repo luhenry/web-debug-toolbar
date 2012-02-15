@@ -32,14 +32,14 @@ class SqlQueriesPanel < Panel
       lines = file.readlines
 
       @sql_queries.each do |query|
-        sql_queries_render += lines.join('').gsub('#{sql}', query.sql).gsub('#{binds}', query.binds.nil? ? '[]' : query.binds.map{ |bind| bind[1].to_s }.to_s).gsub('#{duration}', query.duration.to_s)
+        sql_queries_render += lines.join('').gsub('#{sql}', query.sql).gsub('#{binds}', query.binds.nil? ? '[]' : query.binds.map{ |bind| bind[1].to_s }.to_s).gsub('#{duration}', "%0.1f" % query.duration)
       end
     end
 
     sql_queries_panel_render = ''
 
     File.open(File.expand_path('../views/sql-queries-panel.html', File.dirname(__FILE__)), 'r') do |file|
-      sql_queries_panel_render = file.readlines.join('').gsub('#{sql_queries_total_duration}', sql_queries_total_duration.to_s).gsub('#{sql_queries}', sql_queries_render)
+      sql_queries_panel_render = file.readlines.join('').gsub('#{sql_queries_total_duration}', "%0.1f" % sql_queries_total_duration).gsub('#{sql_queries}', sql_queries_render)
     end
 
     return sql_queries_panel_render
