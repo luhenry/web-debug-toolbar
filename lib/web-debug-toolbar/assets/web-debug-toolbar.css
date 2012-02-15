@@ -34,5 +34,7 @@
 	right:0px;
 	border:1px solid gray;
 	background-color:white;
+	max-height:900px;
 	max-width:99%;
+	overflow:auto;	
 }
