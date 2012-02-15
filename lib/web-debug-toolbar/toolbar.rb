@@ -1,6 +1,19 @@
 class Toolbar
   def initialize
+    @show = false
     @panels = []
+  end
+  
+  def show?
+    return @show == true
+  end
+  
+  def show
+    @show = true
+  end
+  
+  def hide
+    @show = false
   end
 
   def add_panel(panel)
