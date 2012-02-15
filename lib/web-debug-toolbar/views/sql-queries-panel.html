@@ -1,11 +1,12 @@
 <div class="panel">
 	<a href="#" id="sql-queries-time" class="panel-toggle-button" rel="sql-queries">
-		<b>SQL Queries :</b> #{sql_queries_total_duration} ms
+		<b>SQL Queries</b> (#{sql_queries_count})
 	</a>
 </div>
 <div id="sql-queries" class="hidden-panel">
 	<table>
 		<tr>
+			<th style="text-align:left">Name</th>
 			<th style="text-align:left">SQL</th>
 			<th style="text-align:left">Arguments</th>
 			<th style="text-align:left">Duration</th>
