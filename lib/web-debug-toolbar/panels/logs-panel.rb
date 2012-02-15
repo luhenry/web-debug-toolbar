@@ -6,7 +6,7 @@ class LogsPanel < Panel
   end
   
   def notifications
-    return ['sql.active_record', 'process_action.action_controller', 'process_request.around_filter_end', '!render_template.action_view', 'render_partial.action_view'] 
+    return ['sql.active_record', 'process_action.action_controller', 'process_request.around_filter_end', '!render_template.action_view'] 
   end
   
   def notify(name, start, finish, id, payload)
