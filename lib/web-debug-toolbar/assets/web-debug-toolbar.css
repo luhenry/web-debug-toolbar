@@ -6,7 +6,16 @@
 	margin:3px;
 }
 
-#web-debug-toolbar a {
+#web-debug-toolbar .panel-title {
+	padding:3px 7px;
+	margin:0;
+}
+
+#web-debug-toolbar #toolbar-toggle-button {
+	padding:3px 3px;
+}
+
+#web-debug-toolbar a {	
 	color:#000;
 	text-decoration:none;
 }
@@ -19,10 +28,19 @@
 	color:#fff;
 	background-color:#000;
 }
-#web-debug-toolbar .panel, #web-debug-toolbar .hidden-panel, #web-debug-toolbar .toolbar-toggle-panel {
+
+#web-debug-toolbar .panel, #web-debug-toolbar .toolbar-toggle-panel {
 	float:right;
 	display:block;
-	padding:2px;
+	padding:1px 0;
+	border:1px solid gray;
+	border-collapse:collapse;
+	background-color:white;
+}
+
+#web-debug-toolbar .hidden-panel {
+	float:right;
+	display:block;
 	border:1px solid gray;
 	border-collapse:collapse;
 	background-color:white;
@@ -31,11 +49,10 @@
 #web-debug-toolbar .hidden-panel {
 	position:absolute;
 	top:25px;
-	right:0px;
+	right:-3px;
 	border:1px solid gray;
 	background-color:white;
-	max-width:99%;
-	overflow:hidden;	
+	overflow:hidden;
 }
 
 #web-debug-toolbar .hidden-panel table {
