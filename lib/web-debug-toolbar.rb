@@ -49,12 +49,8 @@ module WebDebugToolbar
           ## Create the box at the top right of the page and put it just before </body>
           body = controller.response.body
 
-          puts 'COntent-length = ' + body.size.to_s
-
           body.sub! /<\/head>/, "<style type=\"text/css\" media=\"screen\" charset=\"utf-8\">#{css}</style><script type=\"text/javascript\" charset=\"utf-8\">#{javascript}</script></head>"
           body.sub! /<\/body>/, "#{@@toolbar.render}</body>"
-
-          puts 'COntent-length = ' + body.size.to_s
 
           ## Update content-length header and response body content
           controller.response["Content-Length"] = body.size.to_s
