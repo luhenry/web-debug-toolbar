@@ -4,10 +4,12 @@ require 'web-debug-toolbar/panels/request-time-panel.rb'
 require 'web-debug-toolbar/panels/sql-queries-panel.rb'
 require 'web-debug-toolbar/panels/view-times-panel.rb'
 require 'web-debug-toolbar/panels/logs-panel.rb'
+require 'web-debug-toolbar/panels/request-panel.rb'
 
 module WebDebugToolbar
   @@toolbar = Toolbar.new
   @@toolbar.add_panel(RequestTimePanel.new)
+  @@toolbar.add_panel(RequestPanel.new)
   @@toolbar.add_panel(LogsPanel.new)
   @@toolbar.add_panel(SqlQueriesPanel.new(false, false))
   @@toolbar.add_panel(ViewTimesPanel.new)
