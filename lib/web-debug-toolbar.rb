@@ -13,13 +13,12 @@ module WebDebugToolbar
   @@toolbar.add_panel(LogsPanel.new)
   @@toolbar.add_panel(SqlQueriesPanel.new(false, false))
   @@toolbar.add_panel(ViewTimesPanel.new)
-  
+
   @@notifications = Set.new
-  
   def self.toolbar
     return @@toolbar
   end
-  
+
   def self.notifications
     return @@notifications
   end
@@ -30,41 +29,40 @@ module WebDebugToolbar
         @@toolbar.notify(name, start, finish, id, payload)
         @@notifications.add(name)
       end
-    end
-  end
 
-  ActiveSupport.on_load(:action_controller) do
-    append_around_filter { |controller, action|
-      if controller.request.format == 'html' and @@toolbar.show?
-        request_time_start = Time.now
+      ActiveSupport.on_load(:action_controller) do
+        append_around_filter { |controller, action|
+          request_time_start = Time.now
 
-        action.call
+          action.call
 
-        @@toolbar.notify('process_request.around_filter_end', request_time_start, Time.now, 0, {})
+          @@toolbar.notify('process_request.around_filter_end', request_time_start, Time.now, 0, {})
 
-        javascript = File.open(File.expand_path('web-debug-toolbar/assets/web-debug-toolbar.js', File.dirname(__FILE__)), 'r') do |file|
-          file.readlines.join
-        end
+          javascript = File.open(File.expand_path('web-debug-toolbar/assets/web-debug-toolbar.js', File.dirname(__FILE__)), 'r') do |file|
+            file.readlines.join
+          end
 
-        css = File.open(File.expand_path('web-debug-toolbar/assets/web-debug-toolbar.css', File.dirname(__FILE__)), 'r') do |file|
-          file.readlines.join
-        end
+          css = File.open(File.expand_path('web-debug-toolbar/assets/web-debug-toolbar.css', File.dirname(__FILE__)), 'r') do |file|
+            file.readlines.join
+          end
 
-        ## Create the box at the top right of the page and put it just before </body>
-        body = controller.response.body
-        body.sub! /<\/head>/, "<style type=\"text/css\" media=\"screen\" charset=\"utf-8\">#{css}</style><script type=\"text/javascript\" charset=\"utf-8\">#{javascript}</script></head>"
-        body.sub! /<\/body>/, "#{@@toolbar.render}</body>"
+          ## Create the box at the top right of the page and put it just before </body>
+          body = controller.response.body
 
-        ## Update content-length header and response body content
-        controller.response["Content-Length"] = body.size.to_s
-        controller.response.body = body
+          puts 'COntent-length = ' + body.size.to_s
 
-        @@toolbar.reset(controller)
-        
-        puts "Notifications = #{@@notifications.inspect}"
-      else
-        action.call
+          body.sub! /<\/head>/, "<style type=\"text/css\" media=\"screen\" charset=\"utf-8\">#{css}</style><script type=\"text/javascript\" charset=\"utf-8\">#{javascript}</script></head>"
+          body.sub! /<\/body>/, "#{@@toolbar.render}</body>"
+
+          puts 'COntent-length = ' + body.size.to_s
+
+          ## Update content-length header and response body content
+          controller.response["Content-Length"] = body.size.to_s
+          controller.response.body = body
+
+          @@toolbar.reset(controller)
+        }
       end
-    }
+    end
   end
 end
