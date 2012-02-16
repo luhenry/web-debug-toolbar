@@ -33,7 +33,7 @@ module WebDebugToolbar
 
   ActiveSupport.on_load(:action_controller) do
     append_around_filter { |controller, action|
-      if @@toolbar.show?
+      if controller.request.format == 'html' and @@toolbar.show?
         request_time_start = Time.now
 
         action.call
