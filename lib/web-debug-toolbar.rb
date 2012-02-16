@@ -9,7 +9,7 @@ module WebDebugToolbar
   @@toolbar = Toolbar.new
   @@toolbar.add_panel(RequestTimePanel.new)
   @@toolbar.add_panel(LogsPanel.new)
-  @@toolbar.add_panel(SqlQueriesPanel.new)
+  @@toolbar.add_panel(SqlQueriesPanel.new(false, false))
   @@toolbar.add_panel(ViewTimesPanel.new)
   
   @@notifications = Set.new
