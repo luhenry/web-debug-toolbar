@@ -1,3 +1,4 @@
+require 'set'
 require 'web-debug-toolbar/toolbar.rb'
 require 'web-debug-toolbar/panels/request-time-panel.rb'
 require 'web-debug-toolbar/panels/sql-queries-panel.rb'
@@ -11,14 +12,21 @@ module WebDebugToolbar
   @@toolbar.add_panel(SqlQueriesPanel.new)
   @@toolbar.add_panel(ViewTimesPanel.new)
   
+  @@notifications = Set.new
+  
   def self.toolbar
     return @@toolbar
+  end
+  
+  def self.notifications
+    return @@notifications
   end
 
   ActiveSupport.on_load(:after_initialize) do
     if @@toolbar.show?
       ActiveSupport::Notifications.subscribe do |name, start, finish, id, payload|
         @@toolbar.notify(name, start, finish, id, payload)
+        @@notifications.add(name)
       end
     end
   end
@@ -50,6 +58,8 @@ module WebDebugToolbar
         controller.response.body = body
 
         @@toolbar.reset(controller)
+        
+        puts "Notifications = #{@@notifications.inspect}"
       else
         action.call
       end
